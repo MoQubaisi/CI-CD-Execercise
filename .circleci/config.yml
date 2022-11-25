@@ -12,6 +12,6 @@ jobs:
           command: "echo Mother Fucker"
 
 workflows:
-  say-hello-workflow:
+  default:
     jobs:
       - job1
