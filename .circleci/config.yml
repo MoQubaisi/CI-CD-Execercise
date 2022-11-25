@@ -5,7 +5,7 @@ jobs:
 
   configure_infrastructure: 
     docker:
-      - image: cimg/python:3.10.2
+      - image: python:3.7-alpine3.11
     steps:
       - checkout
       # - add_ssh_keys:
@@ -20,7 +20,7 @@ jobs:
           command: |
             chmod 400 clavis.pem
             ansible-playbook -i inventory.txt main.yml --private-key clavis.pem
-#            ansible-playbook main.yml -i inventory --private-key clavis.pem\
+
 
 workflows:
   default:
