@@ -19,7 +19,7 @@ jobs:
           name: Configure server
           command: |
             chmod 400 clavis.pem
-            ansible-playbook -i inventory.txt main.yml --private-key clavis.pem\
+            ansible-playbook -i inventory.txt main.yml --private-key clavis.pem
 #            ansible-playbook main.yml -i inventory --private-key clavis.pem\
 
 workflows:
