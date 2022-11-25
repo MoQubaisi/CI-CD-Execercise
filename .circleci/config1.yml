@@ -1,0 +1,56 @@
+
+version: 2.1
+
+jobs:
+
+  # create_infrastructure: 
+  #     docker:
+  #       - image: amazon/aws-cli
+  #     steps:
+  #       - checkout
+        # - run:
+        #     name: Create Cloudformation Stack
+        #     command: |
+        #       aws cloudformation deploy \
+        #         --template-file template.yml \
+        #         --stack-name pipelino-${CIRCLE_WORKFLOW_ID:0:5} \
+        #         --region us-east-1
+        # - run:
+        #     name: Add to inventory
+        #     command: |
+        #       aws ec2 describe-instances \
+        #       --query 'Reservations[*].Instances[*].PublicIpAddress' \
+        #       --output text >> inventory
+        #       cat inventory
+        # - save_cache:
+        #     paths:
+        #       - inventory
+        #     key: inventory-{{ checksum "inventory" }}
+
+  configure_infrastructure: 
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      # - restore_cache:
+      #     keys:
+      #       - inventory-{{ checksum "inventory" }}
+      #       - inventory-
+      # - add_ssh_keys:
+      #     fingerprints: ["b0:2e:85:34:a9:2e:b8:10:4a:9c:d0:02:44:f9:18:54"] 
+      - run:
+          name: Install Ansible
+          command: |
+            apk add --update ansible
+      - run:
+          name: Run Playbook and Configure server
+          command: |
+            ansible-playbook -i inventory main.yml
+
+
+workflows:
+  default:
+    jobs:
+      - create_infrastructure
+      - configure_infrastructure:
+          requires: [create_infrastructure]

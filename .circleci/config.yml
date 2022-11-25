@@ -8,20 +8,17 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
-      # - restore_cache:
-      #     keys:
-      #       - inventory-{{ checksum "inventory" }}
-      #       - inventory-
       - add_ssh_keys:
-          fingerprints: ["b0:2e:85:34:a9:2e:b8:10:4a:9c:d0:02:44:f9:18:54"] 
+          fingerprints: ["b0:2e:85:34:a9:2e:b8:10:4a:9c:d0:02:44:f9:18:54"] # You can get this ID in the section where you registered the SSH Key
       - run:
-          name: Install Ansible
+          name: Install dependencies
           command: |
-            apk add --update ansible
+            # install the dependencies needed for your playbook
+            apk add --update ansible 
       - run:
-          name: Run Playbook and Configure server
+          name: Configure server
           command: |
-            ansible-playbook -i inventory main.yml
+            ansible-playbook -i inventory.txt main.yml
 
 
 workflows:
