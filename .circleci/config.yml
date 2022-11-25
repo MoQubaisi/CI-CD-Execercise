@@ -21,6 +21,7 @@ jobs:
               aws ec2 describe-instances \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --output text >> inventory
+              cat inventory
         - save_cache:
             paths:
               - inventory
@@ -35,6 +36,7 @@ jobs:
           keys:
             - inventory-{{ checksum "inventory" }}
             - inventory-
+      - run: cat inventory
       - add_ssh_keys:
           fingerprints: ["b0:2e:85:34:a9:2e:b8:10:4a:9c:d0:02:44:f9:18:54"] 
       - run:
@@ -51,5 +53,4 @@ workflows:
     jobs:
       - create_infrastructure
       - configure_infrastructure:
-          requires:
-            - create_infrastructure
+          requires: [create_infrastructure]
