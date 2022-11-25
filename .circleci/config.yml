@@ -14,6 +14,7 @@ jobs:
           name: Install dependencies
           command: |
             # install the dependencies needed for your playbook
+            sudo apt update -y
             sudo apt install ansible -y
       - run:
           name: Configure server
