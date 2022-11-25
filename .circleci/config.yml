@@ -18,6 +18,7 @@ jobs:
       - run:
           name: Configure server
           command: |
+            #!/bin/bash
             ansible-playbook -i inventory.txt main.yml
 
 
