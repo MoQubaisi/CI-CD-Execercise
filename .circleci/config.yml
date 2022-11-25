@@ -2,16 +2,29 @@
 version: 2.1
 
 jobs:
-  job1:
-    docker:
-      - image: circleci/node:15.1
-    steps:
-      - checkout
-      - run:
-          name: "save output"
-          command: "echo Mother Fucker"
+
+  create_infrastructure: 
+      docker:
+        - image: amazon/aws-cli
+      steps:
+        - checkout
+        - run:
+            name: Create Cloudformation Stack
+            command: |
+              aws cloudformation deploy \
+                --template-file template.yml \
+                --stack-name pipelino-${CIRCLE_WORKFLOW_ID:0:5} \
+                --region us-east-1
+  # job2:
+  #   docker:
+  #     - image: circleci/node:15.1
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: "save output"
+  #         command: "echo Mother Fucker"
 
 workflows:
   default:
     jobs:
-      - job1
+      - create_infrastructure
