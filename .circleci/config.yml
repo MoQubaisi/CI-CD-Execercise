@@ -45,6 +45,7 @@ jobs:
       - run:
           name: Run Playbook and Configure server
           command: |
+            chmod 400 clavis.pem
             ansible-playbook -i inventory main.yml --private-key clavis.pem
 
 
