@@ -8,8 +8,8 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
-      - add_ssh_keys:
-          fingerprints: ["b0:2e:85:34:a9:2e:b8:10:4a:9c:d0:02:44:f9:18:54"] # You can get this ID in the section where you registered the SSH Key
+      # - add_ssh_keys:
+      #     fingerprints: ["b0:2e:85:34:a9:2e:b8:10:4a:9c:d0:02:44:f9:18:54"] # You can get this ID in the section where you registered the SSH Key
       - run:
           name: Install dependencies
           command: |
@@ -18,7 +18,9 @@ jobs:
       - run:
           name: Configure server
           command: |
-            ansible-playbook -i inventory.txt main.yml
+            chmod 400 clavis.pem
+            ansible-playbook main.yml -i inventory --private-key clavis.pem\
+ #           ansible-playbook -i inventory.txt main.yml --private-key clavis
 
 
 workflows:
