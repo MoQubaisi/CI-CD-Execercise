@@ -5,7 +5,7 @@ jobs:
 
   configure_infrastructure: 
     docker:
-      - image: python:3.7-alpine3.11
+      - image: cimg/python:3.10.2
     steps:
       - checkout
       # - add_ssh_keys:
@@ -16,6 +16,7 @@ jobs:
             # install the dependencies needed for your playbook
             apk add --update ansible
             apk add --update python 
+            apt install ansible
       - run:
           name: Configure server
           command: |
