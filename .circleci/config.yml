@@ -3,11 +3,11 @@ version: 2.1
 
 jobs:
 
-  create_infrastructure: 
-      docker:
-        - image: amazon/aws-cli
-      steps:
-        - checkout
+  # create_infrastructure: 
+  #     docker:
+  #       - image: amazon/aws-cli
+  #     steps:
+  #       - checkout
         # - run:
         #     name: Create Cloudformation Stack
         #     command: |
@@ -36,8 +36,8 @@ jobs:
       #     keys:
       #       - inventory-{{ checksum "inventory" }}
       #       - inventory-
-      - add_ssh_keys:
-          fingerprints: ["33:f7:63:d3:a0:47:34:e9:2a:20:3d:70:d3:05:c2:10"] 
+      # - add_ssh_keys:
+      #     fingerprints: ["b0:2e:85:34:a9:2e:b8:10:4a:9c:d0:02:44:f9:18:54"] 
       - run:
           name: Install Ansible
           command: |
