@@ -1,0 +1,17 @@
+
+version: 2.1
+
+jobs:
+  job1:
+    docker:
+      - image: circleci/node:15.1
+    steps:
+      - checkout
+      - run:
+          name: "save output"
+          command: "echo Mother Fucker"
+
+workflows:
+  say-hello-workflow:
+    jobs:
+      - job1
