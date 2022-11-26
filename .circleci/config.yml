@@ -20,6 +20,8 @@ jobs:
           command: |
             ansible-playbook -i inventory.txt main.yml 
 
+          
+
 workflows:
   default:
     jobs:
