@@ -1,0 +1,28 @@
+
+version: 2.1
+
+jobs:
+
+  configure_infrastructure: 
+    docker:
+      - image: python:3.9
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["b0:2e:85:34:a9:2e:b8:10:4a:9c:d0:02:44:f9:18:54"] # You can get this ID in the section where you registered the SSH Key
+      - run:
+          name: Install dependencies
+          command: |
+            # install the dependencies needed for your playbook
+            pip install ansible
+      - run:
+          name: Configure server
+          command: |
+            ansible-playbook -i inventory.txt main.yml 
+
+          
+
+workflows:
+  default:
+    jobs:
+      - configure_infrastructure
